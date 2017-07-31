@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+	<style>
+		h1 {font-family: 'Amatic SC', cursive;}
+	</style>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Map</title>
+	<style>
+		#map{
+			height:400px;
+			width:100%;
+		}
+	</style>
+</head>
+<body>
+	<h1>My Google Map</h1>
+	<div id="map"></div>
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+	<script type="text/javascript">
+	function initMap() {
+	
+	var whispurr = {
+		info: '<strong>Whis-Purr Rescue Inc.</strong><br>\
+					346 El Camino Real<br> Redwood City, CA 94062<br>\
+					<a href="https://www.google.com/maps/dir//Whis-Purr+Rescue+Inc.,+Redwood+City,+CA+94062/@37.4852152,-122.2363548,13z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x808fa24ca2d0ccdb:0x9a57010584754222!2m2!1d-122.2363548!2d37.4852152">Get Directions</a>',
+		lat: 37.4852152,
+		long: -122.2363548
+	};
+
+	var humanimal = {
+		info: '<strong>Humanimal Connection</strong><br>\
+					520 Woodside Rd<br> Redwood City, CA 94061<br>\
+					<a href="https://www.google.com/maps/place/520+Woodside+Rd,+Redwood+City,+CA+94061/@37.4705642,-122.2238409,17z/data=!3m1!4b1!4m5!3m4!1s0x808fa3a1bb4e04e1:0xdbded62c495b2fd1!8m2!3d37.4705642!4d-122.2238409">Get Directions</a>',
+		lat: 37.470564,
+		long: -122.223841
+	};
+
+	var ninelive = {
+		info: '<strong>Nine Lives Foundation</strong><br>\r\
+					3137 Jefferson Ave<br> Redwood, CA 94062<br>\
+					<a href="https://www.google.com/maps/place/3137+Jefferson+Ave,+Redwood+City,+CA+94062/data=!4m2!3m1!1s0x808fa3c65ab3ff39:0x3c2ae19827c83240?sa=X&ved=0ahUKEwjUw9zf_bPVAhWpqFQKHUPnDPUQ8gEIJzAA">Get Directions</a>',
+		lat: 37.468319,
+		long: -122.143936
+	};
+
+	var norcalcollie = {
+		info: '<strong>NorCal Collie Resue Inc.</strong><br>\r\
+					274 RedWood Shores Pkwy #210<br> Redwood, CA 94065<br>\
+					<a href="https://www.google.com/maps/place/274+Redwood+Shores+Pkwy+%23210,+Redwood+City,+CA+94065/@37.5232472,-122.2544683,17z/data=!3m1!4b1!4m5!3m4!1s0x808f98a5c7054701:0x6c989d0334a0a3c2!8m2!3d37.5232472!4d-122.2522796">Get Directions</a>',
+		lat: 37.523247,
+		long: -122.25228
+
+	}
+
+	var petco = {
+		info: '<strong>Petco Animal Supplies</strong><br>\
+					520 Woodside Rd<br> Redwood City, CA 94061<br>\
+					<a href="https://www.google.com/maps/place/Petco+Animal+Supplies/@37.4705979,-122.226043,17z/data=!4m12!1m6!3m5!1s0x808fa3a1bbb6dcfb:0xcd26ca6a030afb1c!2sPetco+Animal+Supplies!8m2!3d37.4705979!4d-122.2238543!3m4!1s0x808fa3a1bbb6dcfb:0xcd26ca6a030afb1c!8m2!3d37.4705979!4d-122.2238543">Get Directions</a>',
+		lat: 37.481202,
+		long: -122.199153
+	}
+
+	var locations = [
+      [whispurr.info, whispurr.lat, whispurr.long, 0],
+      [humanimal.info, humanimal.lat, humanimal.long, 1],
+      [ninelive.info, ninelive.lat, ninelive.long, 2],
+      [norcalcollie.info, norcalcollie.lat, norcalcollie.long, 3],
+      [petco.info, petco.lat, petco.long, 4],
+    ];
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 12,
+		center: new google.maps.LatLng(37.4852, -122.2364),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	var infowindow = new google.maps.InfoWindow({});
+
+	var marker, i;
+
+	for (i = 0; i < locations.length; i++) {
+		marker = new google.maps.Marker({
+			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+			map: map
+		});
+
+		google.maps.event.addListener(marker, 'click', (function (marker, i) {
+			return function () {
+				infowindow.setContent(locations[i][0]);
+				infowindow.open(map, marker);
+			}
+		})(marker, i));
+	}
+}
+//
+	// function initMap () {
+	// 	var whispurr = {
+	// 		info: '<strong> Whis-Purr Rescue Inc. </strong?<br>\ 346 El Camino Real, Redwood City, CA 94062
+
+	// 	}
+	// }
+	// 	var locations = [
+	// 		['Whis-Purr Rescue Inc.', 37.4852152, -122.2363548, 1],
+	// 		['Humanimal Connection', 37.470564, -122.223841, 2],
+	// 		['Nine Lives Foundation', 37.469722, -122.246311, 3],
+	// 		['NorCal Collie Rescue Inc.', 37.523247, -122.25228, 4],
+	// 		['Petro Animal Supplies', 37.481202, -122.199153, 5],
+	// 	];
+
+	// 	var map = new google.maps.Map(document.getElementById('map'),{
+	// 		zoom:13,
+	// 		center: new google.maps.LatLng(37.4852152, -122.2363548),
+	// 		mapTypeId: google.maps.MapTypeId.ROADMAP
+	// 	});
+	// 		var infowindow = new google.maps.InfoWindow();
+
+	// var marker, i;
+
+	// for (i = 0; i < locations.length; i++) {
+	// 	marker = new google.maps.Marker({
+	// 		position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+	// 		map: map
+	// 	});
+
+	// 	google.maps.event.addListener(marker, 'click', (function (marker, i) {
+	// 		return function () {
+	// 			infowindow.setContent(locations[i][0]);
+	// 			infowindow.open(map, marker);
+	// 		}
+	// 	})(marker, i));
+	// }
+		// var infoWindow = new google.maps.InfoWindow({});
+
+		// var marker, i;
+
+		// 	for (i = 0; 1< locations.length; i++) {
+		// 		marker = new google.maps.Marker({
+		// 			position: new google.maps.LatLng(locations[i][1], locations[i][2]), map: map
+		// 		});
+
+		// 	google.maps.event.addListener(marker,'click', (function (marker, i) {
+		// 		return function() {
+		// 			infoWindow.setContent(locations[i][0]);
+		// 			infoWindowopen(map, marker);
+		// 		}
+		// 	})(marker, i));
+
+		// 	}
+		// }
+	
+		// function initMap(){
+		// 	//map options
+		// 		var options = {
+		// 			zoom:13,
+		// 			center:{lat:37.4852,lng:-122.2364}
+		// 			}
+			//new map
+				//var map = new google.maps.Map(document.getElementById('map'), options);
+			
+
+		
+	// 		//add map marker
+	// 		var marker = new google.maps.Marker({
+	// 			position:{lat:37.4852152,lng:-122.2363548},
+	// 			map:map
+	// 		});
+			
+			
+	// 		//info window
+	// 		var infoWindow = new google.maps.InfoWindow({
+	// 			content:'<h1 font-size="10px">Pets in Need: 871 5th Ave Redwood City, CA 94063. To visit, go to http://www.petsinneed.org</h1>'
+	// 		});
+
+	// 		marker.addListener('click', function(){
+	// 			infoWindow.open(map, marker);
+	// 			});
+	// 	//copy from here	
+	// 		var marker = new google.maps.Marker({
+	// 			position:{lat:37.4852152,lng:-122.2353548},
+	// 			map:map
+	// 		});
+			
+			
+	// 		//info window
+	// 		var infoWindow = new google.maps.InfoWindow({
+	// 			content:'<h1 font-size="10px">Humanimal Connection: 520 Woodside Rd, Redwood City, CA 94062. To visit, go to http://www.humanimalconnection.com/</h1>'
+	// 		});
+
+	// 		marker.addListener('click', function(){
+	// 			infoWindow.open(map, marker);
+	// 			});
+	// 	//to here
+	// 	var marker = new google.maps.Marker({
+	// 			position:{lat:37.468318,lng:-122.143936},
+	// 			map:map
+	// 		});
+			
+			
+	// 		//info window
+	// 		var infoWindow2 = new google.maps.InfoWindow2({
+	// 			content:'<h1 font-size="10px">Nine Lives Foundation: 3137 Jefferson Ave, Redwood City, CA 94062. To visit, go to www.ninelivesfoundation.org/</h1>'
+	// 		});
+
+	// 		marker.addListener('click', function(){
+	// 			infoWindow2.open(map, marker);
+	// 			});
+
+	// 	var marker = new google.maps.Marker({
+	// 			position:{lat:37.4852152,lng:-122.2363548},
+	// 			map:map
+	// 		});
+			
+			
+	// 		//info window
+	// 		var infoWindow1 = new google.maps.InfoWindow1({
+	// 			content:'<h1 font-size="10px">Whis-Purr: 346 El Camino Real.Inc, Redwood City, CA 94062. To visit, go to http://whis-purr.org/</h1>'
+	// 		});
+
+	// 		marker.addListener('click', function(){
+	// 			infoWindow1.open(map, marker);
+	// 			});
+	// }
+
+	</script>
+
+	 <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCuWGwZTpdipCpApgv5w2F5ljVKB1ebWc&callback=initMap">
+    </script> 
+</body>
+</html>
